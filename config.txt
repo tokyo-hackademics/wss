@@ -1,0 +1,2 @@
+=== hackason Config Vars
+CLEARDB_DATABASE_URL: mysql://ba2a41e132f669:affb20bc@us-cdbr-iron-east-02.cleardb.net/heroku_5f487d638dee7d9?reconnect=true

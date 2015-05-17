@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>マルチメディア質問サービス：疑問丸</title>
+
+    <link href="http://www.css-reset.com/css/meyer.css" media="screen, projection" rel="stylesheet" type="text/css" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="/css/justified-nav.css" rel="stylesheet">
+
+    <link href="/css/style.css" rel="stylesheet">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      
+      <div class="masthead">
+        <h3 class="text-muted"><img src="/css/icon.png"/>マルチメディア質問サービス 質問丸</h3>
+    　　</div>
+      <!-- Jumbotron -->
+      <div class="jumbotron">
+        <h1><img src="/css/icon.png"/>Let's Question</h1>
+        <p class="lead">質問はもっとも重要な学習です！<br>質問丸では、様々なメディアを使用して世界中に質問することができます。</p>
+        
+        <div class="row step0">
+            <form method="post" action="/">
+                <p><?= $this->formText("email", "", array("id" => "email", "class" => "form-control", "placeholder" => "Email address")); ?></p>
+                <a class="btn btn-lg btn-warning" role="button">登録して始める</a>
+            </form>
+        </div>
+      
+        <div class="row step1">
+            <div class="alert alert-warning" role="alert">質問したい画像を撮影しよう！</div>  
+
+            <div class="col-lg-6">
+                <div id="stage" class="stage"></div>
+                <div class="row">
+                    <a class="btn btn-warning btn-picture" role="button">撮影</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row step2">
+            <div class="alert alert-warning" role="alert">質問を入力して世界中に送信しよう！</div>
+            <div class="col-lg-6 stage">
+                <canvas id="canvas" width="500" height="300"></canvas>
+            </div>
+
+            <form method="post" action="/">
+                <p><?= $this->formTextarea("content", "", array("class" => "form-control content", "placeholder" => "質問を入力", "rows" => 10)); ?></p>
+                <a class="btn btn-lg btn-warning btn-send" role="button">送信する</a>
+            </form>
+        </div>
+
+        <div class="row step3">
+            <img src="/css/oval.svg" />
+        </div>
+
+        <div class="row step4">
+            <div class="alert alert-info" role="alert">
+            質問を投稿しました！<br>
+            以下のURLから回答を確認することができます。<br>
+            <a id="link" href=""></a>
+            </div>
+        </div>
+
+      </div>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-lg-4">
+          <h2>ご利用上の注意</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          
+        </div>
+        <div class="col-lg-4">
+          <h2>運営元</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          
+       </div>
+        <div class="col-lg-4">
+          <h2>お問い合わせ</h2>
+          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
+          
+        </div>
+      </div>
+
+      <!-- Site footer -->
+      <footer class="footer">
+        <p>&copy; Company 2015</p>
+      </footer>
+
+    </div> <!-- /container -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/photobooth_min.js"></script>
+    <script src="/js/photocomm.js"></script>
+    <script src="/js/script.js"></script>
+  </body>
+</html>

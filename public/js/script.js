@@ -1,0 +1,108 @@
+$(function(){
+	
+	$(".step0 .btn").on("click", function(){
+		registUser();
+	});
+
+	$(".btn-picture").on("click", function(){
+		$("#stage .trigger").click();
+		
+		setTimeout(function(){
+			$("#canvas").show();
+			switchView('.step2','.step1');
+		}, 500);
+	});
+
+	$(".btn-cancel").on("click", function(){
+		$("#stage").show();
+		$("#canvas").hide();
+	});
+
+	$(".btn-send").on("click", function(){
+		switchView(".step3", ".step2", function(){
+			sendContent();
+		});
+	});
+
+	//$(".step0 btn").on("click", function(){switchView('.step1','.step0');});
+
+	var initCamera = function(){
+		$( '#stage' ).photobooth().on( "image", function( event, dataUrl ){
+			drawCanvas(dataUrl);
+		});
+	};
+
+	var drawCanvas = function(dataUrl){
+		var canvas = $('#canvas').get(0);
+		
+		if ( ! canvas || ! canvas.getContext ) { 
+			return false;
+		}
+
+		var ctx = canvas.getContext('2d');
+		var imgObj = new Image();
+		imgObj.src = dataUrl;
+		imgObj.onload = function(){
+			ctx.drawImage(imgObj, 0, 0);
+		}
+
+		$(".photo").photoComm({commentImage:"/js/pointer.png"});
+	}
+
+	var registUser = function (){
+		var hostUrl= '/index/regist'; // データ送信先
+	    $.ajax({
+	        url: hostUrl,
+	        type:'POST',
+	        dataType: 'json',
+	        data : {email: $("#email").val()},
+	        timeout:10000,
+	        success: function(data) {
+	            // 成功
+	            //alert("ok");
+	            switchView('.step1','.step0', function(){
+					initCamera();
+				});
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            // 失敗
+	            alert("error");
+	        }
+	    });
+	};
+
+	var sendContent = function (){
+
+		var hostUrl= '/index/upload'; // データ送信先
+	    var dataUrl= $("#canvas").get(0).toDataURL('image/png');
+	    var jsonComm = JSON.stringify($(".photo").getComments());
+	    $.ajax({
+	        url: hostUrl,
+	        type:'POST',
+	        dataType: 'json',
+	        data : {img : dataUrl, content: $(".content").val(), comments:jsonComm},
+	        timeout:10000,
+	        success: function(data) {
+	            // 成功
+	            //alert("ok");
+	            switchView('.step4','.step3');
+	            $("#link").attr("href", "http://quickstart/index/detail?id=" + data.id);
+	            $("#link").text($("#link").attr("href"));
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            // 失敗
+	            alert("error");
+	        }
+	    });
+	};
+
+	var switchView = function(fadein, fadeout, callback){
+		$(fadeout).fadeOut("normal", function(){
+			$(fadein).fadeIn("normal",function(){
+				//$('body').animate({scrollTop:$(fadein).offset().top}, 500, "swing", function(){
+					callback ? callback() : "";
+				//});
+			});
+		});
+	};
+});
